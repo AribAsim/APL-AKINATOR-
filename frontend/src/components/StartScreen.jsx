@@ -39,7 +39,7 @@ export const StartScreen = ({ onStart, loading }) => {
       </div>
 
       <div className="logo-container">
-        <h1 className="logo-text">Akinator<span className="registered">®</span></h1>
+        <h1 className="logo-text">Akinator<span className="registered"></span></h1>
       </div>
 
       <div className="start-footer">

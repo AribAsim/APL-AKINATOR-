@@ -444,8 +444,8 @@ h1 {
 }
 
 .left-bubble {
-  left: 5%;
-  top: 15%;
+  left: 18%;
+  top: 20%;
 }
 
 .left-bubble::after {
@@ -462,8 +462,8 @@ h1 {
 }
 
 .right-bubble {
-  right: 2%;
-  top: 35%;
+  right: 16%;
+  top: 30%;
 }
 
 .right-bubble::before, .right-bubble::after {

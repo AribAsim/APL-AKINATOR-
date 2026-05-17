@@ -1,23 +1,5 @@
 [
   {
-    "session_id": "dummy6",
-    "correct_player": "Jasprit Bumrah",
-    "was_correct": true,
-    "timestamp": "2026-05-05T10:05:00Z"
-  },
-  {
-    "session_id": "dummy7",
-    "correct_player": "Suryakumar Yadav",
-    "was_correct": true,
-    "timestamp": "2026-05-05T10:06:00Z"
-  },
-  {
-    "session_id": "dummy8",
-    "correct_player": "Rishabh Pant",
-    "was_correct": true,
-    "timestamp": "2026-05-05T10:07:00Z"
-  },
-  {
     "session_id": "dummy9",
     "correct_player": "Shubman Gill",
     "was_correct": true,
@@ -298,5 +280,23 @@
     "correct_player": "Virat Kholi",
     "was_correct": false,
     "timestamp": "2026-05-17T16:45:34.439595"
+  },
+  {
+    "session_id": "26262fc9-a77b-419d-b01d-9fd81d011a11",
+    "correct_player": "MS Dhoni",
+    "was_correct": true,
+    "timestamp": "2026-05-17T17:01:58.723201"
+  },
+  {
+    "session_id": "7e33db13-f600-482e-aff6-4c11ac2e89d6",
+    "correct_player": "BB McCullum",
+    "was_correct": true,
+    "timestamp": "2026-05-17T17:11:56.871805"
+  },
+  {
+    "session_id": "fa5f976e-7d8a-454c-b7bb-98d58b48a2b5",
+    "correct_player": "MS Dhoni",
+    "was_correct": true,
+    "timestamp": "2026-05-17T17:13:12.474576"
   }
 ]

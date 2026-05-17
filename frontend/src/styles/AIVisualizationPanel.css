@@ -126,11 +126,13 @@
 
 .suspect-name {
   flex: 1;
-  font-size: 12px;
+  font-size: 11px;
   color: #e2e8f0;
   font-weight: 600;
   font-family: 'Courier New', monospace;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+  line-height: 1.3;
 }
 
 .suspect-probability {
