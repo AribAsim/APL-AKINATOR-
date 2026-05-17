@@ -4,8 +4,10 @@ from typing import Dict, List
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Load environment variables from the root .env file BEFORE importing local modules
-load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env'))
+# Load .env file for local development. On Render/production, env vars are set in the dashboard.
+_env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '.env')
+if os.path.exists(_env_path):
+    load_dotenv(_env_path)
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
