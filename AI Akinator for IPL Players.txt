@@ -1,0 +1,155 @@
+﻿🏏 Project Brief: AI Akinator for IPL 
+Players 
+📌 Problem Statement 
+Design and develop an AI-powered interactive guessing system that can identify an IPL 
+cricketer (past or present) by asking a sequence of intelligent, adaptive questions. 
+
+The system should function similarly to the popular "Akinator" game, but must be strictly 
+focused on the Indian Premier League (IPL) ecosystem, encompassing players, roles, teams, 
+and match contexts. 
+
+The AI must: 
+●​ Ask context-aware, high-impact questions. 
+●​ Adapt dynamically based on user responses. 
+●​ Identify the correct player in the minimum number of steps. 
+
+🎯 Objective 
+Build an intelligent, game-like system that: 
+●​ Uses AI-driven reasoning (strictly no hardcoded logic or static decision trees). 
+●​ Identifies an IPL player in ≤ 12 questions. 
+●​ Improves over time using past interactions and user feedback. 
+●​ Delivers a smooth, engaging user experience. 
+
+🧩 Core Challenge 
+Participants must simulate human-like deduction. The system should: 
+1.​ Start with a massive pool of all possible IPL players. 
+2.​ Narrow down possibilities using smart, information-maximizing questioning. 
+3.​ Make a confidence-based final prediction. 
+
+🚦 Scope & Constraints 
+✅ Allowed (In-Scope) 
+●​ Only IPL players (Past or Present). 
+●​ Indian and Overseas players. 
+●​ All IPL seasons (2008 – Present). 
+●​ All player roles (Batsman, Bowler, All-rounder, Wicketkeeper). 
+
+❌ Not Allowed (Out-of-Scope) 
+
+
+
+●​ Non-IPL cricketers or athletes from other sports. 
+●​ Fictional characters. 
+●​ Static, predefined, or hardcoded decision trees (e.g., standard if/else flowcharts). 
+
+⚙️ Core Requirements 
+1. Adaptive Questioning System 
+●​ Questions must dynamically change based on previous answers. 
+●​ No predefined flowcharts or static trees allowed. 
+●​ The interaction should feel fluid and conversational. 
+
+2. AI-Based Decision Engine 
+●​ Maintain a live candidate pool of IPL players. 
+●​ Continuously update probability scores based on user inputs. 
+●​ Use AI/ML/LLMs to: 
+
+○​ Select the next best question. 
+○​ Maximize information gain (entropy reduction) with every step. 
+
+3. Confidence-Based Guessing 
+●​ The system should trigger a final guess only when confidence is ≥ 80%. 
+●​ Otherwise, it must continue questioning (up to a strict maximum of 8 questions). 
+
+4. Learning Capability (Bonus) 
+●​ Learn from incorrect guesses. 
+●​ Incorporate end-user feedback ("No, that wasn't my player"). 
+●​ Improve future predictions and question formulations. 
+
+🔄 Expected Workflow & Gameplay Flow 
+The Engine Loop 
+1.​ AI asks the first question. 
+2.​ User responds (Yes / No / Maybe / Don't Know). 
+3.​ System updates candidate probabilities. 
+4.​ AI selects the next optimal question based on the updated pool. 
+5.​ Repeat until: 
+
+○​ Confidence ≥ 80% → Make final guess. 
+○​ Maximum questions (8) reached → Output the best possible guess based on highest 
+
+probability. 
+
+The Player's Journey 
+●​ Step 0: User thinks of a specific IPL player. 
+●​ Step 1: AI begins the questioning sequence. 
+
+
+
+●​ Step 2: System performs dynamic, real-time deduction. 
+●​ Step 3: Final Guess — "You’re thinking of [Player Name], right?" 
+
+💬 Example Questioning Flows 
+Note: These are illustrative. The AI must generate these dynamically based on probability, not a 
+script. 
+
+Example 1: Finisher Role 
+●​ Q1: Is your player known for finishing matches in the IPL? 
+●​ Q2: Does he usually bat in the last 4 overs? 
+●​ Q3: Has he played for legacy teams like CSK, MI, or RCB? 
+
+Example 2: Bowler 
+●​ Q1: Is your player primarily a bowler? 
+●​ Q2: Does he frequently bowl in the death overs? 
+●​ Q3: Is he an overseas fast bowler? 
+
+Example 3: Overseas Player 
+●​ Q1: Is your player from outside India? 
+●​ Q2: Has he won the Orange/Purple cap in any IPL season? 
+●​ Q3: Is he known for highly aggressive opening batting? 
+
+Example 4: Captaincy 
+●​ Q1: Has your player ever captained an IPL franchise? 
+●​ Q2: Has he successfully led a team to the playoffs or a title? 
+●​ Q3: Is he currently active in the latest IPL season? 
+
+🛠️ Suggested Tech Stack (Google-Centric) 
+Participants are highly encouraged (though not strictly restricted) to utilize the following 
+Google ecosystem tools: 
+●​ Gemini API: For dynamic question generation and reasoning logic. 
+●​ Vertex AI: For model optimization and deploying custom prediction endpoints. 
+●​ Firebase / Firestore: For real-time session management and storing learning/feedback 
+
+data. 
+●​ Google Sheets / BigQuery: To act as the foundational database for the extensive IPL 
+
+player dataset. 
+●​ Custom APIs: To enrich data (e.g., fetching live/historical stats). 
+
+📊 Evaluation Criteria 
+Criteria Weight Description 
+
+Accuracy of Guess High Does the system 
+consistently guess the 
+correct player within the 
+limits? 
+
+Question Intelligence High Are the questions 
+contextually relevant, 
+specific, and 
+information-rich? 
+
+AI Reasoning Very High Is the system genuinely 
+dynamic, or does it rely on 
+hidden hardcoded logic? 
+
+User Experience (UX) Medium Is the interface engaging, 
+fast, and smooth? 
+
+Innovation & Learning High Does the system adapt 
+from its mistakes and user 
+feedback? 
+
+💡 Key Insight & Final Goal 
+This challenge evaluates how effectively a system can ask the right questions and reduce 
+uncertainty efficiently using probabilistic reasoning instead of scripted logic. 
+
+Final Goal: Build an AI system that behaves like a seasoned cricket expert, capable of 
+identifying any IPL player through a brief, intelligent conversation.

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+supabase
+python-dotenv
+google-genai
+requests
+websockets
+numpy
+openai

@@ -1,0 +1,72 @@
+# APL-Akinator (IPL Player Genie): Hackathon Demo Script
+Target Duration: 2.5 - 3 Minutes
+Tone: Energetic, technical but accessible, confident.
+
+---
+
+[0:00 - 0:20] THE HOOK & INTRODUCTION
+
+VISUAL:
+The presenter is looking directly at the camera.
+On screen, the vibrant Start Screen of the APL-Akinator is visible, featuring the custom Cricket Genie mascot and the glass-morphism UI.
+
+SPEAKER:
+"Think of any IPL cricket player. Past or present. Got one? I bet our AI can guess exactly who you're thinking of in under ten questions. 
+Hi, we are [Team Name], and this is APL-Akinator—a highly specialized, intelligent guessing genie built specifically for cricket fans."
+
+
+
+[0:20 - 1:15] THE LIVE DEMO & GAMEPLAY
+
+VISUAL:
+The presenter clicks 'Play'. The first question appears. 
+The screen shows the animated mascot video loop ("download.mp4"). 
+The presenter clicks tactile action buttons: 'Yes', 'No', 'Probably'.
+
+SPEAKER:
+"Let’s see it in action. Our frontend is a tactile, highly engaging React interface designed to capture the magic of the classic Akinator game, but tailored with a modern design and responsive animations. 
+As we play, our AI isn't just walking down a boring, static, pre-scripted decision tree. It dynamically serves questions while our mascot interacts with contextual banter. 
+
+Notice the speed? Our FastAPI backend is recalculating probabilities across our entire player dataset in milliseconds."
+
+VISUAL:
+The engine reaches high confidence. The Result Card appears, correctly guessing the player (e.g., MS Dhoni or Virat Kohli) along with tribute/banter text.
+
+SPEAKER:
+"Boom! It guessed our player in just a few questions. But what if we made a mistake during the game, or what if the AI gets stumped?"
+
+VISUAL:
+The presenter clicks the "Go back" button, then clicks the "I was wrong" button. The app transitions to the new Correction Phase, showing the sad/apologetic mascot and a text input field.
+
+SPEAKER:
+"We've built a robust state-reversion system. You can effortlessly go back to change answers. And if you manage to stump the Genie, you can enter the correct answer. This isn't just for show—this feeds directly into our reinforcement feedback loop, making the engine smarter for the next user."
+
+---
+
+[1:15 - 2:15] THE MAGIC UNDER THE HOOD (ARCHITECTURE)
+
+VISUAL:
+A clean architecture diagram appears on screen: 
+[React Frontend] --> [FastAPI Backend] --> [Custom Probability Engine & Question Selector]
+Then, quick b-roll highlighting snippets of the Python backend (engine_service.py).
+
+SPEAKER:
+"So, how does it actually work? This challenge evaluated how effectively a system can ask the right questions using probabilistic reasoning instead of scripted logic. 
+Instead of relying entirely on slow, expensive LLM API calls for every single step, we engineered a blazing-fast, custom Probability Engine in Python.
+
+Our 'QuestionSelector' algorithm uses advanced information-gain heuristics. At every step, it calculates the entropy of the remaining IPL candidate pool to ask the mathematically optimal question—the one guaranteed to slice the possibilities perfectly in half. 
+
+We also built a dynamic Disambiguation Mode. If the engine narrows it down to two highly similar players, it seamlessly triggers a tie-breaker algorithm to find the absolute truth."
+
+---
+
+[2:15 - 2:45] EXTENSIBILITY, BUSINESS VALUE & OUTRO
+
+VISUAL:
+Show a split screen of the APL-Akinator alongside mockups of other domains (e.g., Movies, E-commerce, Tech).
+
+SPEAKER:
+"The best part? This architecture is completely decoupled from the data. By simply swapping out a single JSON dataset, this exact engine can be instantly repurposed for e-commerce product recommendations, medical symptom checking, or educational tools. 
+
+It behaves like a seasoned expert, it's fast, it learns from its users, and it’s mathematically optimized. 
+We are [Team Name]. Thank you, and we invite you to try and stump the Genie!"

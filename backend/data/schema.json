@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IPL Player Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name of the IPL player"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Binary attributes used for Yes/No probabilistic questioning",
+      "properties": {
+        "is_batsman": { "type": "boolean" },
+        "is_bowler": { "type": "boolean" },
+        "is_all_rounder": { "type": "boolean" },
+        "is_wicket_keeper": { "type": "boolean" },
+        "is_indian": { "type": "boolean" },
+        "is_overseas": { "type": "boolean" },
+        "is_australian": { "type": "boolean" },
+        "is_english": { "type": "boolean" },
+        "is_south_african": { "type": "boolean" },
+        "is_west_indian": { "type": "boolean" },
+        "has_captained": { "type": "boolean" },
+        "is_left_handed_batsman": { "type": "boolean" },
+        "is_right_handed_batsman": { "type": "boolean" },
+        "is_spin_bowler": { "type": "boolean" },
+        "is_fast_bowler": { "type": "boolean" },
+        "has_won_orange_cap": { "type": "boolean" },
+        "has_won_purple_cap": { "type": "boolean" },
+        "has_won_ipl_title": { "type": "boolean" },
+        "is_currently_active": { "type": "boolean" },
+        "played_for_csk": { "type": "boolean" },
+        "played_for_mi": { "type": "boolean" },
+        "played_for_rcb": { "type": "boolean" },
+        "played_for_kkr": { "type": "boolean" },
+        "played_for_dc": { "type": "boolean" },
+        "played_for_pbks": { "type": "boolean" },
+        "played_for_rr": { "type": "boolean" },
+        "played_for_srh": { "type": "boolean" },
+        "played_for_lsg": { "type": "boolean" },
+        "played_for_gt": { "type": "boolean" },
+        "has_scored_century": { "type": "boolean" },
+        "has_taken_hat_trick": { "type": "boolean" },
+        "has_taken_5_wicket_haul": { "type": "boolean" },
+        "has_played_internationally": { "type": "boolean" }
+      },
+      "required": [
+        "is_batsman", "is_bowler", "is_all_rounder", "is_wicket_keeper",
+        "is_indian", "is_overseas", "is_australian", "is_english",
+        "is_south_african", "is_west_indian", "has_captained",
+        "is_left_handed_batsman", "is_right_handed_batsman", "is_spin_bowler",
+        "is_fast_bowler", "has_won_orange_cap", "has_won_purple_cap",
+        "has_won_ipl_title", "is_currently_active", "played_for_csk",
+        "played_for_mi", "played_for_rcb", "played_for_kkr", "played_for_dc",
+        "played_for_pbks", "played_for_rr", "played_for_srh", "played_for_lsg",
+        "played_for_gt", "has_scored_century", "has_taken_hat_trick",
+        "has_taken_5_wicket_haul", "has_played_internationally"
+      ]
+    }
+  },
+  "required": ["name", "attributes"]
+}
