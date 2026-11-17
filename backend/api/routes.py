@@ -299,7 +299,7 @@ async def create_battle_room(body: dict):
     """
     Create a multiplayer quiz battle room
     """
-    username = body.get("username", "Anonymous")
+    username = body.get("username") or body.get("host_username") or "Anonymous"
     
     room = battle_service.create_room(username)
     
@@ -315,7 +315,7 @@ async def join_battle_room(body: dict):
     Join a quiz battle room
     """
     room_code = body.get("room_code")
-    username = body.get("username", "Anonymous")
+    username = body.get("username") or body.get("guest_username") or "Anonymous"
     
     try:
         room = battle_service.join_room(room_code, username)

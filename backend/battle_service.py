@@ -106,8 +106,8 @@ class BattleService:
             "updated_at": datetime.now(timezone.utc).isoformat()
         }
         
-        response = supabase.table(BattleService.ROOM_TABLE).update(updates).eq("room_code", room_code).execute()
-        return response.data[0] if response.data else {}
+        response = supabase.table(BattleService.ROOM_TABLE).update(updates).eq("room_code", room_code).eq("status", "countdown").execute()
+        return response.data[0] if response.data else room
 
     @staticmethod
     def submit_answer(room_code: str, player_role: str, answer: str) -> Dict[str, Any]:
@@ -168,11 +168,6 @@ class BattleService:
             "updated_at": now.isoformat()
         }
 
-        # Check if both have now answered
-        other_role = "guest" if player_role == "host" else "host"
-        if room.get(f"{other_role}_last_answer"):
-            updates["status"] = "round_result"
-
         # Log to battle_answers
         try:
             supabase.table(BattleService.ANSWER_TABLE).insert({
@@ -188,8 +183,21 @@ class BattleService:
         except Exception as e:
             print(f"Error logging answer: {e}")
 
+        # Save player's answer update
         response = supabase.table(BattleService.ROOM_TABLE).update(updates).eq("room_code", room_code).execute()
-        return response.data[0] if response.data else {}
+        updated_room = response.data[0] if response.data else room
+
+        # Fetch the absolute freshest state from the database to see if both answered
+        fresh_room = BattleService.get_room(room_code) or updated_room
+        if fresh_room.get("host_last_answer") and fresh_room.get("guest_last_answer") and fresh_room.get("status") == "active":
+            status_update = {
+                "status": "round_result",
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+            final_resp = supabase.table(BattleService.ROOM_TABLE).update(status_update).eq("room_code", room_code).execute()
+            return final_resp.data[0] if final_resp.data else fresh_room
+
+        return updated_room
 
     @staticmethod
     def next_round(room_code: str) -> Dict[str, Any]:
@@ -197,6 +205,10 @@ class BattleService:
         room = BattleService.get_room(room_code)
         if not room: return {}
         
+        # GUARD: Only allow advancement if currently in round_result status
+        if room.get("status") != "round_result":
+            return room
+            
         next_r = room["current_round"] + 1
         if next_r > room["total_rounds"]:
             # End game

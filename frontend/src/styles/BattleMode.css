@@ -535,3 +535,82 @@
   letter-spacing: 2px;
   animation: pulse 1s infinite;
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .battle-mode {
+    padding: 20px 15px;
+    width: 100%;
+    border-radius: 12px;
+  }
+  
+  .battle-header {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .vs-display {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .battle-top-bar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .player-stat {
+    flex: 1;
+    align-items: center;
+    text-align: center;
+    min-width: auto;
+  }
+  
+  .player-stat.right {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+  }
+  
+  .timer-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    border-width: 3px;
+  }
+  
+  .question-box {
+    padding: 20px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  
+  .option-btn {
+    padding: 14px;
+    font-size: 14px;
+  }
+  
+  .final-scoreboard {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .room-code-display {
+    padding: 20px;
+  }
+  
+  .room-code-display .code {
+    font-size: 32px;
+    letter-spacing: 6px;
+  }
+}

@@ -25,8 +25,30 @@ class EngineService:
             print(f"Error loading dataset: {e}")
             return []
 
+    def get_dynamic_priors(self) -> Dict[str, float]:
+        """Calculates popularity weights based on past feedback (learning from users)."""
+        priors = {}
+        try:
+            if os.path.exists(self.feedback_path):
+                with open(self.feedback_path, 'r') as f:
+                    data = json.load(f)
+                for entry in data:
+                    player = entry.get("correct_player")
+                    if player:
+                        # Find correct case
+                        for p in self.players:
+                            if p["name"].lower() == player.lower():
+                                player = p["name"]
+                                break
+                        # Add a +2 weight for every time a player was the correct answer
+                        priors[player] = priors.get(player, 0.0) + 2.0
+        except Exception as e:
+            print(f"Error calculating priors: {e}")
+        return priors
+
     def _get_probability_engine(self, state: SessionState) -> ProbabilityEngine:
-        engine = ProbabilityEngine(self.players)
+        priors = self.get_dynamic_priors()
+        engine = ProbabilityEngine(self.players, priors)
         if state.probabilities:
             engine.probabilities = state.probabilities.copy()
         return engine
@@ -84,8 +106,9 @@ class EngineService:
         if state.asked_questions and state.asked_questions[-1] == last_attr:
             state.asked_questions.pop()
             
-        # Re-calculate probabilities from scratch
-        engine = ProbabilityEngine(self.players)
+        # Re-calculate probabilities from scratch using dynamic priors
+        priors = self.get_dynamic_priors()
+        engine = ProbabilityEngine(self.players, priors)
         for entry in state.answer_history:
             # Re-apply all previous answers
             # Use same logic as process_answer (hard mode for first 3 or many players)

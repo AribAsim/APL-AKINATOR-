@@ -206,3 +206,34 @@
     transform: scaleY(1);
   }
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .ai-visualization-panel {
+    padding: 15px;
+    width: 100%;
+    margin-top: 16px;
+  }
+  
+  .suspects-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .suspect-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 8px;
+  }
+  
+  .suspect-name {
+    font-size: 10px;
+  }
+  
+  .suspect-avatar-container {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+}

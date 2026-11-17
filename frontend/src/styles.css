@@ -1422,32 +1422,73 @@ h1 {
 /* Responsive Layout */
 @media (max-width: 1200px) {
   .app-layout {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
   }
 
   .sidebar {
-    max-height: 300px;
-  }
-
-  .sidebar-left,
-  .sidebar-right {
-    grid-column: 1;
-  }
-
-  .main-content {
-    grid-column: 1;
+    width: 100%;
+    max-height: none;
+    position: relative;
+    top: 0;
   }
 }
 
 @media (max-width: 768px) {
   .app-layout {
     padding: 8px;
-    gap: 8px;
+    gap: 12px;
+  }
+  
+  .game-content-row {
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
   }
 
-  .sidebar {
-    max-height: 250px;
+  .game-header {
+    padding: 15px 20px;
+  }
+
+  .mini-logo-text {
+    font-size: 1.5rem;
+  }
+  
+  .question-bubble-wrapper {
+    margin-left: 0;
+    padding: 20px;
+  }
+  
+  .question-number-tab {
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 10px;
+    min-width: 40px;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .question-bubble-wrapper::before {
+    left: 50%;
+    top: -15px;
+    transform: translateX(-50%) rotate(90deg);
+    border-width: 0 15px 15px 15px;
+  }
+  
+  .answer-options-box {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+  
+  .answer-options-box .btn-probably {
+    grid-column: 1 / -1;
+  }
+  
+  .answer-options-box .btn-probably-not {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1621,7 +1662,6 @@ h1 {
 
 .answer-options-box .btn-probably-not {
   grid-column: 2 / 4; /* Span remaining 2 columns for better look */
-}
 }
 
 .answer-text-btn {

@@ -11,11 +11,32 @@ LIKELIHOODS_HARD = {
 }
 
 class ProbabilityEngine:
-    def __init__(self, players: List[Dict]):
+    def __init__(self, players: List[Dict], priors: Dict[str, float] = None):
         self.players = players
         self.num_players = len(players)
-        initial_prob = 1.0 / self.num_players if self.num_players > 0 else 0
-        self.probabilities = {player["name"]: initial_prob for player in self.players}
+        self.probabilities = {}
+        
+        priors = priors or {}
+        
+        # Default weight is 1.0. Hardcoded boosts for mega-stars to prevent them losing ties to obscure players
+        BASE_PRIORS = {
+            "MS Dhoni": 15.0, "V Kohli": 15.0, "RG Sharma": 15.0,
+            "SR Tendulkar": 10.0, "AB de Villiers": 10.0, "CH Gayle": 8.0,
+            "SK Raina": 8.0, "JJ Bumrah": 8.0, "RA Jadeja": 8.0,
+            "SL Malinga": 7.0, "AD Russell": 7.0, "DA Warner": 7.0
+        }
+        
+        total_weight = 0.0
+        for player in self.players:
+            name = player["name"]
+            # Base prior + dynamic prior from feedback
+            weight = BASE_PRIORS.get(name, 1.0) + priors.get(name, 0.0)
+            self.probabilities[name] = weight
+            total_weight += weight
+            
+        if total_weight > 0:
+            for name in self.probabilities:
+                self.probabilities[name] /= total_weight
         
     def get_probabilities(self) -> List[Dict]:
         sorted_probs = sorted(self.probabilities.items(), key=lambda item: item[1], reverse=True)

@@ -18,6 +18,7 @@ export default function BattleMode({ username, sessionId, onClose, onGameEnd }) 
   const timerRef = useRef(null);
   const channelRef = useRef(null);
   const startTimerRef = useRef(null);
+  const nextRoundTimerRef = useRef(null);
   const pollingRef = useRef(null);
 
   // Clean up all timers and channels when component unmounts
@@ -26,6 +27,7 @@ export default function BattleMode({ username, sessionId, onClose, onGameEnd }) 
       if (channelRef.current) supabase.removeChannel(channelRef.current);
       if (pollingRef.current) clearInterval(pollingRef.current);
       if (startTimerRef.current) clearTimeout(startTimerRef.current);
+      if (nextRoundTimerRef.current) clearTimeout(nextRoundTimerRef.current);
     };
   }, []);
 
@@ -141,42 +143,69 @@ export default function BattleMode({ username, sessionId, onClose, onGameEnd }) 
   const handleRoomUpdate = (newRoom) => {
     setRoomData(newRoom);
     setScreen(newRoom.status);
+  };
 
-    // If active, fetch question if needed
-    if (newRoom.status === 'active') {
-      if (!currentQuestion || currentQuestion.id !== newRoom.question_ids[newRoom.current_round - 1]) {
-        fetchCurrentQuestion(newRoom.room_code);
-      }
-    }
+  // --- SIDE EFFECTS AND GAME LOOP ---
 
-    // Reset my answer if round advanced
-    if (newRoom.status === 'active' && (!roomData || roomData.current_round !== newRoom.current_round)) {
+  // 1. Fetch current question and reset answers when active round changes
+  useEffect(() => {
+    if (!roomData || roomData.status !== 'active') return;
+
+    const currentRound = roomData.current_round;
+    const expectedQuestionId = roomData.question_ids?.[currentRound - 1];
+
+    if (!expectedQuestionId) return;
+
+    // Check if we need to load a new question
+    const isStaleQuestion = !currentQuestion || currentQuestion.id !== expectedQuestionId;
+
+    if (isStaleQuestion) {
+      // Immediately reset local answer and clear the stale question (shows spinner)
       setMyAnswer(null);
+      setCurrentQuestion(null);
+      
+      const fetchQuestion = async () => {
+        try {
+          const response = await fetch(`/api/battle/question/${roomData.room_code}`);
+          const data = await response.json();
+          // Ensure we don't apply stale fetch results if the round already moved
+          if (data && data.id === expectedQuestionId) {
+            setCurrentQuestion(data);
+          }
+        } catch (err) {
+          console.error("Error fetching question:", err);
+        }
+      };
+      fetchQuestion();
     }
+  }, [roomData?.status, roomData?.current_round, roomData?.question_ids]);
 
-    // Both players can trigger the start of the first round to ensure synchronization
-    if (newRoom.status === 'countdown' && !startTimerRef.current) {
+  // 2. Handle room timers and automated transitions
+  useEffect(() => {
+    if (!roomData) return;
+
+    // Countdown to starting the first round
+    if (roomData.status === 'countdown' && !startTimerRef.current) {
       startTimerRef.current = setTimeout(() => {
-        startRound(newRoom.room_code);
+        startRound(roomData.room_code);
         startTimerRef.current = null;
       }, 3000);
     }
 
-    // Host handles round transitions for consistency
-    if (playerRole === 'host' && newRoom.status === 'round_result') {
-      setTimeout(() => nextRound(newRoom.room_code), 5000);
+    // Host transitions from round_result to next round after 5 seconds
+    if (playerRole === 'host' && roomData.status === 'round_result' && !nextRoundTimerRef.current) {
+      nextRoundTimerRef.current = setTimeout(async () => {
+        await nextRound(roomData.room_code);
+        nextRoundTimerRef.current = null;
+      }, 5000);
     }
-  };
 
-  const fetchCurrentQuestion = async (code) => {
-    try {
-      const response = await fetch(`/api/battle/question/${code}`);
-      const data = await response.json();
-      setCurrentQuestion(data);
-    } catch (err) {
-      console.error("Error fetching question:", err);
+    // Cleanup transition timer if status changes away from round_result
+    if (roomData.status !== 'round_result' && nextRoundTimerRef.current) {
+      clearTimeout(nextRoundTimerRef.current);
+      nextRoundTimerRef.current = null;
     }
-  };
+  }, [roomData?.status, roomData?.current_round, playerRole]);
 
   // --- GAME ACTIONS ---
 
